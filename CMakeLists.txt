@@ -76,13 +76,14 @@ disable_source_warnings(${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
 
 # Clarity
 set(CLR_BUILD_SHARED OFF CACHE BOOL "" FORCE)
+set(CLR_ENABLE_TESTING OFF CACHE BOOL "" FORCE)
 set(CLR_ENABLE_GRAPHICS ON CACHE BOOL "" FORCE)
 set(CLR_ENABLE_DILIGENT OFF CACHE BOOL "" FORCE)
 set(CLR_ENABLE_FILAMENT OFF CACHE BOOL "" FORCE)
 set(CLR_ENABLE_NATIVE_OPENGL ON CACHE BOOL "" FORCE)
 set(CLR_IMGUI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/imgui" CACHE STRING "" FORCE)
 set(CLR_GLFW_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/glfw-3.2" CACHE STRING "" FORCE)
-add_subdirectory("$ENV{HOME}/Dropbox/ClairIndustries/clarity_private/clarity" "${CMAKE_CURRENT_BINARY_DIR}/.clarity")
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/dependencies/clarity" "${CMAKE_CURRENT_BINARY_DIR}/.clarity")
 target_link_libraries(webapp PRIVATE Clarity)
 
 # imgui <-> glfw

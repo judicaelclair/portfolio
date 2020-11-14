@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/project/portfolio.cpp
- * Last Modified: Friday, 13th November 2020 10:07:34 pm
+ * Last Modified: Saturday, 14th November 2020 6:55:10 pm
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -19,7 +19,7 @@ portfolio_page::portfolio_page()
                         "https://github.com/judicaelclair/portfolio") {}
 
 void portfolio_page::render_project_content_() {
-  wrapped_text("My personal portfolio website (this site) is a C++ Web App compiled to WebAssembly using Emscripten. "
+  wrapped_text("My personal portfolio website (this site) is a C++ web app compiled to WebAssembly using Emscripten. "
                "Source code is available on {GitHub}.",
                {wrapped_text_external_link("https://github.com/judicaelclair/portfolio", "View Portfolio Repository")});
 
