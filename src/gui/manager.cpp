@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/manager.cpp
- * Last Modified: Friday, 13th November 2020 10:19:03 pm
+ * Last Modified: Saturday, 14th November 2020 7:05:03 pm
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -136,7 +136,9 @@ void gui_manager::update() {
     if (!set_page_with_name(hash)) {
       detail::set_hash_from_page(actual_page);
     }
-  } else if (hash.empty()) {
+  } else if (hash.empty() && !dynamic_cast<home_page*>(pages().front().get())) {
+    // we only force home page hash when wrong page, otherwise people will be
+    // unable to leave website by using back button.
     set_page_with_reset<home_page>();
   }
 }
