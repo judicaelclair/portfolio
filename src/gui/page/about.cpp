@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/about.cpp
- * Last Modified: Saturday, 14th November 2020 1:37:34 pm
+ * Last Modified: Saturday, 14th November 2020 7:12:52 pm
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -33,8 +33,8 @@ void about_page::render_content_() {
   ImGui::Dummy({0, 15});
   ImGui::Indent(indentation);
 
-  wrapped_text("My long term goal is to develop fully autonomous domestic humanoid robots to assist the growing "
-               "elderly population and people with disabilities in their daily tasks.");
+  wrapped_text("My long term goal is to develop an autonomous humanoid robot to assist mobility impaired people and "
+               "provide disaster relief.");
   ImGui::Dummy({0, 5});
   wrapped_text("My current focus is on dexterous robot manipulation, as well as high-performance scientific computing. "
                "I also have a growing interest in distributed reinforcement learning and physics "
@@ -62,7 +62,7 @@ void about_page::render_content_() {
 
     link::info i_txt;
     const ImVec2 txt_pos = window.DC.CursorPos;
-    if ((i_txt = link::add<link::NO_BUTTON_COLOUR | link::NO_NEUTRAL_UNDERLINE>(s_txt, TOOLTIP))) {
+    if ((i_txt = link::add<link::NO_BUTTON_COLOUR | link::NO_NEUTRAL_UNDERLINE>(s_txt, TOOLTIP, default_font))) {
       open_link(CV_LINK);
     }
     ImGui::SameLine();
