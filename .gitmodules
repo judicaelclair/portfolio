@@ -1,0 +1,12 @@
+[submodule "cmake/cmake_utils"]
+	path = cmake/cmake_utils
+	url = https://github.com/judicaelclair/cmake_utils.git
+[submodule "dependencies/imgui"]
+	path = dependencies/imgui
+	url = https://github.com/ocornut/imgui.git
+[submodule "dependencies/IconFontCppHeaders"]
+	path = dependencies/IconFontCppHeaders
+	url = https://github.com/juliettef/IconFontCppHeaders.git
+[submodule "dependencies/stb"]
+	path = dependencies/stb
+	url = https://github.com/nothings/stb.git

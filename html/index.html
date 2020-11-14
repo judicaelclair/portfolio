@@ -1,0 +1,307 @@
+<!--
+Copyright (C) 2020 Judicaël CLAIR - All Rights Reserved
+You cannot use, modify or redistribute this code without explicit
+permission from the copyright holder.
+-----
+File: /html/index.html
+Last Modified: Saturday, 14th November 2020 5:37:31 pm
+Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
+-->
+
+<!doctype html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="description" content="All about Judicaël Clair | Software Developer & Roboticist">
+  <title>Judicaël CLAIR</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: arial;
+      margin: 0;
+      padding: none;
+      overflow: hidden;
+    }
+
+    div.emscripten_border {
+      border: none;
+    }
+
+    /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+    canvas.emscripten {
+      border: 0px none;
+      background-color: black;
+    }
+
+    #loading_page {
+      position: absolute;
+      display: table;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(51, 51, 51, 255);
+    }
+
+    .loading_page_content {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .progress_bar {
+      display: inline-block;
+      position: relative;
+      width: 500px;
+      height: 3em;
+      background-color: #111;
+      border-radius: 1.5em;
+      color: white;
+    }
+
+    .progress_bar::before {
+      content: attr(progress_label);
+      display: flex;
+      align-items: center;
+      position: absolute;
+      left: .5em;
+      top: .5em;
+      bottom: .5em;
+      width: calc(var(--width, 0) * 1%);
+      min-width: 2rem;
+      max-width: calc(100% - 1em);
+      background-color: #069;
+      border-radius: 1em;
+      padding: 1em;
+    }
+
+    #progress_text {
+      color: white;
+    }
+
+    #error_page {
+      position: absolute;
+      display: none;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(51, 51, 51, 255);
+    }
+
+    .error_page_content {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .error_page_title {
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    #error_text {
+      font-size: 20px;
+      color: red;
+    }
+
+    #error_contact_details {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loading_page">
+    <div class="loading_page_content">
+      <div class="progress_bar" style="--width: 0" progress_label="0%"></div>
+      <p id="progress_text"></p>
+    </div>
+  </div>
+
+  <div id="error_page">
+    <div class="error_page_content">
+      <t class="error_page_title">Judicaël Clair's Portfolio</t>
+      <p id="error_text"></p>
+      <p id="error_contact_details"></p>
+    </div>
+  </div>
+
+  <div class="emscripten_border">
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+  </div>
+
+  <script type='text/javascript'>
+    document.getElementById("canvas").style.display = "none";
+
+    var Module = {
+      preRun: [],
+      postRun: [],
+      print: (function () { })(),
+      printErr: (function () { })(),
+      canvas: (function () {
+        var canvas = document.getElementById('canvas');
+        canvas.addEventListener("webglcontextlost", function (e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+        return canvas;
+      })(),
+      setStatus: function (text) { },
+      totalDependencies: 0,
+      monitorRunDependencies: function (left) { }
+    };
+
+    window.addEventListener('resize', js_resizeCanvas, false);
+    function js_resizeCanvas() {
+      document.getElementById('canvas').width = window.innerWidth;
+      document.getElementById('canvas').height = window.innerHeight;
+    }
+
+    var js;
+    var total_loaded_bytes = 0;
+    var total_loaded_files = 0;
+    var total_bytes = 0;
+    var total_files = 0;
+    var file_loaded = {};
+    var file_total = {};
+    const progress_bar = document.getElementsByClassName('progress_bar')[0];
+
+    function sum(obj) {
+      var sum = 0;
+      for (var elem in obj) {
+        if (obj.hasOwnProperty(elem)) {
+          sum += parseFloat(obj[elem]);
+        }
+      }
+      return sum;
+    }
+
+    function update_progress_ui() {
+      const p = Math.round(100 * total_loaded_bytes / total_bytes);
+      progress_bar.style.setProperty('--width', Math.min(100, (5 + 0.95 * p)))
+      progress_bar.setAttribute("progress_label", Math.min(100, Math.round(p)) + "%")
+
+      var txt;
+      if (total_loaded_files == total_files) {
+        txt = "Initialising website...";
+      } else {
+        txt = total_loaded_files + "/" + total_files + " files downloaded (" + Math.round(Math.min(total_bytes, total_loaded_bytes) / 1024) + "/" + Math.round(total_bytes / 1024) + "KB)";
+      }
+      document.getElementById("progress_text").textContent = txt;
+    }
+
+    function on_progress(e, file) {
+      file_loaded[file] = e.loaded;
+      if (e.lengthComputable) {
+        file_total[file] = e.total;
+      } else {
+        file_total[file] = Math.max(file_total[file], file_loaded[file]);
+      }
+      total_bytes = sum(file_total);
+      total_loaded_bytes = sum(file_loaded);
+      update_progress_ui();
+
+      const p = Math.round(100 * total_loaded_bytes / total_bytes);
+      console.log("Approximate total progress ", p + "% -", file, "has ", e.loaded, "bytes loaded");
+    }
+
+    function on_ready_state(e, file) {
+      let r = e.target;
+      if (r.readyState != 4 || r.status != 200) {
+        return;
+      }
+
+      var size;
+      if (r.responseType == "text") {
+        js = r.responseText;
+        size = r.responseText.length;
+      } else if (r.responseType == "blob") {
+        size = r.response.size;
+      } else {
+        throw new Error("responseType must be 'text' or 'blob'");
+      }
+      file_loaded[file] = size;
+      file_total[file] = size;
+      total_bytes = sum(file_total);
+      total_loaded_bytes = sum(file_loaded);
+      total_loaded_files += 1;
+      console.log("Loaded", file, "succesfully -", size, "bytes total (" + Math.round(size / 1024) + "KB)");
+      update_progress_ui();
+
+      if (total_loaded_files == total_files) {
+        run_script();
+      }
+    }
+
+    function download(file, rt, size_estimate) {
+      // Update logic & UI
+      file_loaded[file] = 0;
+      file_total[file] = size_estimate;
+      total_files += 1;
+      total_bytes = sum(file_total);
+      update_progress_ui();
+
+      // Send download request
+      var r = new XMLHttpRequest();
+      r.addEventListener("progress", (e => on_progress(e, file)));
+      r.open("GET", file, true);
+      r.onreadystatechange = (e => on_ready_state(e, file));
+      r.responseType = rt;
+      r.send();
+    }
+
+    function download_data(file, size_estimate) {
+      download(file, "blob", size_estimate);
+    }
+
+    function download_script(file, size_estimate) {
+      download(file, "text", size_estimate);
+    }
+
+    function main() {
+      download_data("webapp.data", 6211840);
+      download_data("webapp.wasm", 13856181);
+      download_script("webapp.js", 406827);
+    }
+
+    function error(msg, contact_details = "Please ensure that you are using a recent version of Chrome or Firefox. Email me at clair.judicael@gmail.com if this issue persists.") {
+      document.getElementById("error_text").textContent = msg;
+      document.getElementById("error_contact_details").textContent = contact_details;
+      document.getElementById("loading_page").style.display = "none";
+      document.getElementById("error_page").style.display = "table";
+    }
+
+    function run_script() {
+      eval.bind(window)(js);
+      window.addEventListener('error', e => {
+        error(e.message);
+      });
+    }
+
+    const IS_SAFARI = window.safari !== undefined;
+    const WASM_SUPPORTED = (() => {
+      try {
+        if (typeof WebAssembly === "object"
+          && typeof WebAssembly.instantiate === "function") {
+          const module = new WebAssembly.Module(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
+          if (module instanceof WebAssembly.Module)
+            return new WebAssembly.Instance(module) instanceof WebAssembly.Instance;
+        }
+      } catch (e) {
+      }
+      return false;
+    })();
+
+    if (IS_SAFARI) {
+      error("This web app does not support Safari. Please use a recent version of Chrome or Firefox.", "Email me at clair.judicael@gmail.com if you need further assistance.");
+    } else if (!WASM_SUPPORTED) {
+      error("This browser does not support WebAssembly. Please use a recent version of Chrome or Firefox.", "Email me at clair.judicael@gmail.com if you need further assistance.");
+    } else {
+      main();
+    }
+  </script>
+</body>
+
+</html>
