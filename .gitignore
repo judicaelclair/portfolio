@@ -3,3 +3,4 @@ build/*
 .idea/*
 cmake-build*
 local-tests/
+html_untracked/*

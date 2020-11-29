@@ -32,6 +32,19 @@ enable_sanitizers(project_options)
 # static analysis
 include(cmake/cmake_utils/StaticAnalyzers.cmake)
 
+function(add_public_targets)
+    foreach(target IN LISTS ARGN)
+        set_target_properties(${target} PROPERTIES
+                              RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/public_html
+                              LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/public_html
+                              ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib/static)
+    endforeach()
+    install(TARGETS ${ARGV}
+            RUNTIME DESTINATION public_html
+            LIBRARY DESTINATION public_html
+            ARCHIVE DESTINATION lib/static)
+endfunction()
+
 if(NOT DEFINED EMCC)
   get_filename_component(EMCC "$ENV{HOME}/emsdk/upstream/emscripten/emcc" ABSOLUTE)
 endif()
@@ -56,6 +69,7 @@ endforeach()
 # create executable
 set(CMAKE_EXECUTABLE_SUFFIX ".js")
 add_executable(webapp)
+add_public_targets(webapp)
 if(NOT CMAKE_BUILD_TYPE MATCHES Rel)
   set(SAFE_FLAG_STATUS "0")
 else()
@@ -85,6 +99,7 @@ set(CLR_IMGUI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/imgui" CACHE STRING 
 set(CLR_GLFW_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/glfw-3.2" CACHE STRING "" FORCE)
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/dependencies/clarity" "${CMAKE_CURRENT_BINARY_DIR}/.clarity")
 target_link_libraries(webapp PRIVATE Clarity)
+add_public_targets(Clarity)
 
 # imgui <-> glfw
 target_sources(webapp PRIVATE
@@ -93,5 +108,10 @@ target_sources(webapp PRIVATE
 
 # misc dependencies
 target_include_directories(webapp SYSTEM PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/IconFontCppHeaders" "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/stb")
+
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/html/" DESTINATION "${PROJECT_BINARY_DIR}/public_html")
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/html_untracked")
+  file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/html_untracked/" DESTINATION "${PROJECT_BINARY_DIR}/public_html")
+endif()
 
 use_native_compiler()
