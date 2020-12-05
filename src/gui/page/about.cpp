@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/about.cpp
- * Last Modified: Saturday, 14th November 2020 7:12:52 pm
+ * Last Modified: Saturday, 5th December 2020 11:38:39 pm
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -37,8 +37,8 @@ void about_page::render_content_() {
                "provide disaster relief.");
   ImGui::Dummy({0, 5});
   wrapped_text("My current focus is on dexterous robot manipulation, as well as high-performance scientific computing. "
-               "I also have a growing interest in distributed reinforcement learning and physics "
-               "simulations; particularly in the context of robot motion and control.");
+               "I also have a growing interest in both distributed and decentralised machine learning; particularly in "
+               "the context of robotics.");
   ImGui::Dummy({0, 30});
   ImGui::PushFont(semi_large_bold_font);
   { // CV link
