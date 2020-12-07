@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/standard.cpp
- * Last Modified: Saturday, 14th November 2020 5:32:52 pm
+ * Last Modified: Monday, 7th December 2020 11:20:04 am
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -124,7 +124,7 @@ float standard_page::footer_height() const {
   float v = 0;
 
   // normal text
-  v += ImGui::GetCurrentWindow()->CalcFontSize() * 6;
+  v += ImGui::GetCurrentWindow()->CalcFontSize() * 7;
 
   // Contact title
   ImGui::PushFont(semi_large_font);
@@ -188,6 +188,12 @@ void standard_page::render_footer_() {
   if (link::add(clr::fmt("%.*s", static_cast<int>(content::university_email.size()), content::university_email.data()),
                 clr::fmt("%s Send email", icon::ENVELOPE))) {
     open_email(content::university_email);
+  }
+  ImGui::Text("Work Email: ");
+  ImGui::SameLine();
+  if (link::add(clr::fmt("%.*s", static_cast<int>(content::work_email.size()), content::work_email.data()),
+                clr::fmt("%s Send email", icon::ENVELOPE))) {
+    open_email(content::work_email);
   }
   ImGui::Text("Mobile: %.*s", static_cast<int>(content::mobile_number.size()), content::mobile_number.data());
 

@@ -4,10 +4,9 @@
  * permission from the copyright holder.
  * -----
  * File: /include/WebApp/content/common.hpp
- * Last Modified: Friday, 13th November 2020 9:58:48 pm
+ * Last Modified: Monday, 7th December 2020 11:20:23 am
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
-
 
 #pragma once
 
@@ -23,6 +22,7 @@ static inline constexpr auto copyright_holders  = full_name;
 
 static inline constexpr auto personal_email   = "clair.judicael@gmail.com"sv;
 static inline constexpr auto university_email = "judicael.clair18@imperial.ac.uk"sv;
+static inline constexpr auto work_email       = "judicael.clair@arm.com"sv;
 static inline constexpr auto mobile_number    = "+44 758 593 3800"sv;
 
 static inline constexpr auto default_email = personal_email;
