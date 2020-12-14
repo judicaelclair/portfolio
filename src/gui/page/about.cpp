@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/about.cpp
- * Last Modified: Saturday, 5th December 2020 11:38:39 pm
+ * Last Modified: Monday, 14th December 2020 5:08:00 pm
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -20,7 +20,7 @@
 namespace webapp {
 
 void about_page::render_content_() {
-  constexpr auto BODY_WIDTH = 800.0f;
+  constexpr auto BODY_WIDTH = 920.0f;
 
   auto& window = *ImGui::GetCurrentWindow();
   auto& style  = ImGui::GetStyle();
@@ -34,11 +34,11 @@ void about_page::render_content_() {
   ImGui::Indent(indentation);
 
   wrapped_text("My long term goal is to develop an autonomous humanoid robot to assist mobility impaired people and "
-               "provide disaster relief.");
+               "provide disaster relief. To this end, I am currently developing context-aware prostheses for dexterous "
+               "manipulation; with this technology later being adapted to humanoid robots.");
   ImGui::Dummy({0, 5});
-  wrapped_text("My current focus is on dexterous robot manipulation, as well as high-performance scientific computing. "
-               "I also have a growing interest in both distributed and decentralised machine learning; particularly in "
-               "the context of robotics.");
+  wrapped_text("My areas of interest include robotics, augmented reality, high-performance scientific computing (e.g. "
+               "fluid dynamics), natural language processing, as well as decentralised machine learning.");
   ImGui::Dummy({0, 30});
   ImGui::PushFont(semi_large_bold_font);
   { // CV link
