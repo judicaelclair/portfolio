@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/project/path_bench.cpp
- * Last Modified: Saturday, 14th November 2020 5:10:03 pm
+ * Last Modified: Sunday, 20th December 2020 12:59:08 pm
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -16,7 +16,7 @@ namespace webapp {
 
 path_bench_page::path_bench_page()
     : base_project_page("PathBench", "2020 - Present  |  Group  |  Academic  |  Robotics  |  Python",
-                        "https://github.com/judicaelclair/PathBench") {
+                        "https://github.com/perfectly-balanced/PathBench") {
   imgs_.emplace_back(clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/full_size/path_bench_2d.png"));
 }
 
@@ -34,7 +34,7 @@ void path_bench_page::render_project_content_() {
 
   wrapped_text("PathBench is a 3D benchmarking framework for robot path planning - supports both classic (e.g. A*, "
                "RRT) and ML-based path planners (e.g. based on LSTMs). Source code is available on {GitHub}.",
-               {wrapped_text_external_link("https://github.com/judicaelclair/PathBench", "View PathBench Repository")});
+               {wrapped_text_external_link("https://github.com/perfectly-balanced/PathBench", "View PathBench Repository")});
 
   ImGui::Dummy({0, SECTION_SPACING});
   ImGui::PushFont(semi_large_bold_font);

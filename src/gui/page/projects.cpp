@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/projects.cpp
- * Last Modified: Saturday, 14th November 2020 5:21:05 pm
+ * Last Modified: Sunday, 20th December 2020 12:59:08 pm
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -239,7 +239,7 @@ projects_page::projects_page()
       constexpr const char NAME[] = "PathBench";
       constexpr const char DESC[] = "3D benchmarking framework for robot path planning - supports both classic (e.g. "
                                     "A*, RRT) and ML-based path planners (e.g. based on LSTMs).";
-      constexpr const char GIT[] = "https://github.com/judicaelclair/PathBench";
+      constexpr const char GIT[] = "https://github.com/perfectly-balanced/PathBench";
 
       auto DATE = D{2020, PRESENT_DATE};
       auto tb   = clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/thumbnail/path_bench.png");
