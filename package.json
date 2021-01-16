@@ -1,0 +1,28 @@
+** NOT A REAL JSON FILE **
+
+Defines root folder for VSCode extension: psioniq File Header.
+Below is the settings.json used for generating file headers in this project.
+
+"psi-header.config": {
+    "blankLinesAfter": 2
+},
+"psi-header.variables": [
+    ["copyrightHolder", "Judicaël CLAIR"],
+    ["author", "Judicaël CLAIR"],
+    ["authoremail", "clair.judicael@gmail.com"]
+],
+"psi-header.templates": [
+    {
+        "language": "*",
+        "template": [
+            "Copyright (C) <<year>> <<copyrightholder>> - All Rights Reserved",
+            "You cannot use, modify or redistribute this code without explicit",
+            "permission from the copyright holder.",
+            "-----",
+            "File: <<filerelativepath>>",
+            "Last Modified: <<dateformat('dddd, Do MMMM YYYY h:mm:ss a')>>",
+            "Modified By: <<author>> <<<authoremail>>>",
+        ]
+    }
+],
+"psi-header.changes-tracking.isActive": true
