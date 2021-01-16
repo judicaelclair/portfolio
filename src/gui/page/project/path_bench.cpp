@@ -4,20 +4,23 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/project/path_bench.cpp
- * Last Modified: Sunday, 20th December 2020 12:59:08 pm
+ * Last Modified: Saturday, 16th January 2021 11:15:03 pm
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
 #include <WebApp/gui/page/project/path_bench.hpp>
 #include <WebApp/gui/widget/text.hpp>
+#include <WebApp/gui/widget/link.hpp>
+#include <WebApp/gui/util/js.hpp>
+#include <WebApp/gui/icon.hpp>
 #include <WebApp/window.hpp>
 
 namespace webapp {
 
 path_bench_page::path_bench_page()
-    : base_project_page("PathBench", "2020 - Present  |  Group  |  Academic  |  Robotics  |  Python",
+    : base_project_page("PathBench", "2020 - 2021  |  Group  |  Academic  |  Robotics  |  Python",
                         "https://github.com/perfectly-balanced/PathBench") {
-  imgs_.emplace_back(clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/full_size/path_bench_2d.png"));
+  imgs_.emplace_back(clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/full_size/path_bench.png"));
 }
 
 void path_bench_page::render_content_() {
@@ -32,21 +35,42 @@ void path_bench_page::render_project_content_() {
   ImGui::Text("Description");
   ImGui::PopFont();
 
-  wrapped_text("PathBench is a 3D benchmarking framework for robot path planning - supports both classic (e.g. A*, "
-               "RRT) and ML-based path planners (e.g. based on LSTMs). Source code is available on {GitHub}.",
-               {wrapped_text_external_link("https://github.com/perfectly-balanced/PathBench", "View PathBench Repository")});
+  wrapped_text(
+      "PathBench is an open-source motion planning platform used to develop, assess, compare and visualise the "
+      "performance and behaviour of both classic and machine learning-based robot path planners in a two or "
+      "three-dimensional space. Source code is available on {GitHub}.",
+      {wrapped_text_external_link("https://github.com/perfectly-balanced/PathBench", "View PathBench Repository")});
 
-  ImGui::Dummy({0, SECTION_SPACING});
+  auto& window = *ImGui::GetCurrentWindow();
   ImGui::PushFont(semi_large_bold_font);
-  ImGui::Text("Development");
-  ImGui::PopFont();
+  { // report link
+    constexpr const char TOOLTIP[]   = "View file";
+    static const std::string CV_LINK = []() {
+      auto url = current_url();
+      if (url.back() != '/') {
+        url += '/';
+      }
+      url += "path_bench_report.pdf";
+      return url;
+    }();
 
-  bullet_wrapped_text(
-      "PathBench already existed before this project, however, pre-existing work only dealt with 2D algorithms.");
-  bullet_wrapped_text("Added generic support for N-dimensional maps and algorithms.");
-  bullet_wrapped_text(
-      "Rich visualisation of 2D and 3D maps - replaced PyGame and Tkinter to exclusively use Panda3D for graphics.");
-  bullet_wrapped_text("Many other things will be added later, project is still under active development.");
+    ImGui::Dummy({0,10});
+
+    const char* s_txt        = "Report";
+    const std::string s_icon = clr::fmt("  %s", icon::PDF_FILE);
+
+    link::info i_txt;
+    const ImVec2 txt_pos = window.DC.CursorPos;
+    if ((i_txt = link::add<link::NO_BUTTON_COLOUR | link::NO_NEUTRAL_UNDERLINE>(s_txt, TOOLTIP, default_font))) {
+      open_link(CV_LINK);
+    }
+    ImGui::SameLine();
+    if (auto i_icon = link::add<link::NO_BUTTON_COLOUR | link::NO_UNDERLINE>(s_icon, TOOLTIP); i_icon) {
+      open_link(CV_LINK);
+    } else if (i_icon.hovered)
+      [[unlikely]] { link::underline<link::NO_BUTTON_COLOUR>(txt_pos, i_txt.size, i_icon.hovered); }
+  }
+  ImGui::PopFont();
 }
 
 } // namespace webapp

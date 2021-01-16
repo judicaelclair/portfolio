@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/projects.cpp
- * Last Modified: Sunday, 20th December 2020 12:59:08 pm
+ * Last Modified: Saturday, 16th January 2021 11:28:57 pm
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -177,7 +177,7 @@ projects_page::projects_page()
       auto tb   = clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/thumbnail/clarity.png");
 
       items_.emplace_back(
-          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<clarity_page>(); }, std::move(tb), GIT, 6);
+          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<clarity_page>(); }, std::move(tb), GIT, 5);
     }
     auto& p = items_.back();
 
@@ -209,7 +209,7 @@ projects_page::projects_page()
       auto tb   = clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/thumbnail/hand.png");
 
       items_.emplace_back(
-          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<hand_page>(); }, std::move(tb), "", 5);
+          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<hand_page>(); }, std::move(tb), "", 4);
     }
     auto& p = items_.back();
 
@@ -237,15 +237,14 @@ projects_page::projects_page()
   { // PathBench
     {
       constexpr const char NAME[] = "PathBench";
-      constexpr const char DESC[] = "3D benchmarking framework for robot path planning - supports both classic (e.g. "
-                                    "A*, RRT) and ML-based path planners (e.g. based on LSTMs).";
+      constexpr const char DESC[] = "Motion Planning Platform for classic and machine learning-based algorithms.";
       constexpr const char GIT[] = "https://github.com/perfectly-balanced/PathBench";
 
-      auto DATE = D{2020, PRESENT_DATE};
+      auto DATE = D{2020, 2021};
       auto tb   = clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/thumbnail/path_bench.png");
 
       items_.emplace_back(
-          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<path_bench_page>(); }, std::move(tb), GIT, 4);
+          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<path_bench_page>(); }, std::move(tb), GIT, 6);
     }
     auto& p = items_.back();
 
