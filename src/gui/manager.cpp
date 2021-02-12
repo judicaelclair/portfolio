@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/manager.cpp
- * Last Modified: Saturday, 14th November 2020 7:05:03 pm
+ * Last Modified: Friday, 12th February 2021 12:10:13 am
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -13,6 +13,7 @@
 #include <WebApp/gui/page/project/breadboard_computer.hpp>
 #include <WebApp/gui/page/project/clarity.hpp>
 #include <WebApp/gui/page/project/hand.hpp>
+#include <WebApp/gui/page/project/haptic_grasping.hpp>
 #include <WebApp/gui/page/project/path_bench.hpp>
 #include <WebApp/gui/page/project/portfolio.hpp>
 #include <WebApp/gui/page/project/ruined_kingdoms.hpp>
@@ -111,6 +112,8 @@ bool gui_manager::set_page_with_name(const std::string_view n) {
     set_page_with_reset<clarity_page>();
   } else if (n == page_name::HAND) {
     set_page_with_reset<hand_page>();
+  } else if (n == page_name::HAPTIC_GRASING) {
+    set_page_with_reset<haptic_grasping_page>();
   } else if (n == page_name::PATH_BENCH) {
     set_page_with_reset<path_bench_page>();
   } else if (n == page_name::PORTFOLIO) {

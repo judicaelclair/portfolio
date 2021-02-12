@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/projects.cpp
- * Last Modified: Saturday, 16th January 2021 11:28:57 pm
+ * Last Modified: Friday, 12th February 2021 12:00:08 am
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -21,6 +21,7 @@
 #include <WebApp/gui/page/project/breadboard_computer.hpp>
 #include <WebApp/gui/page/project/clarity.hpp>
 #include <WebApp/gui/page/project/hand.hpp>
+#include <WebApp/gui/page/project/haptic_grasping.hpp>
 #include <WebApp/gui/page/project/path_bench.hpp>
 #include <WebApp/gui/page/project/portfolio.hpp>
 #include <WebApp/gui/page/project/ruined_kingdoms.hpp>
@@ -164,6 +165,35 @@ projects_page::projects_page()
 
   /** PROJECTS **/
 
+  { // Final year BEng research project
+    {
+      constexpr const char NAME[] = "Object Grasping with Haptic Feedback";
+      constexpr const char DESC[] = "Final year BEng research project.";
+
+      auto DATE = D{2020, PRESENT_DATE};
+      auto tb   = clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/thumbnail/haptic_grasping.png");
+
+      items_.emplace_back(*this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<haptic_grasping_page>(); }, std::move(tb), "", 8);
+    }
+    auto& p = items_.back();
+
+    // work category
+    p.add_tag("Individual");
+    p.add_tag("Academic");
+
+    // general category
+    p.add_tag("Robotics");
+
+    // languages
+    p.add_tag("Python");
+
+    // technologies
+    // ---
+
+    // miscellaneous
+    // ---
+  }
+
   { // Clarity
     {
       constexpr const char NAME[] = "Clarity";
@@ -177,7 +207,8 @@ projects_page::projects_page()
       auto tb   = clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/thumbnail/clarity.png");
 
       items_.emplace_back(
-          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<clarity_page>(); }, std::move(tb), GIT, 5);
+          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<clarity_page>(); }, std::move(tb), GIT,
+          5);
     }
     auto& p = items_.back();
 
@@ -238,13 +269,14 @@ projects_page::projects_page()
     {
       constexpr const char NAME[] = "PathBench";
       constexpr const char DESC[] = "Motion Planning Platform for classic and machine learning-based algorithms.";
-      constexpr const char GIT[] = "https://github.com/perfectly-balanced/PathBench";
+      constexpr const char GIT[]  = "https://github.com/perfectly-balanced/PathBench";
 
       auto DATE = D{2020, 2021};
       auto tb   = clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/thumbnail/path_bench.png");
 
       items_.emplace_back(
-          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<path_bench_page>(); }, std::move(tb), GIT, 6);
+          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<path_bench_page>(); }, std::move(tb),
+          GIT, 6);
     }
     auto& p = items_.back();
 
@@ -274,7 +306,8 @@ projects_page::projects_page()
       auto tb   = clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/thumbnail/breadboard_computer.png");
 
       items_.emplace_back(
-          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<breadboard_computer_page>(); }, std::move(tb), "", 3);
+          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<breadboard_computer_page>(); },
+          std::move(tb), "", 3);
     }
     auto& p = items_.back();
 
@@ -304,7 +337,8 @@ projects_page::projects_page()
       auto tb   = clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/thumbnail/rk.png");
 
       items_.emplace_back(
-          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<ruined_kingdoms_page>(); }, std::move(tb), "", 2);
+          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<ruined_kingdoms_page>(); },
+          std::move(tb), "", 2);
     }
     auto& p = items_.back();
 
@@ -335,7 +369,8 @@ projects_page::projects_page()
       auto tb   = clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/thumbnail/asteroids.png");
 
       items_.emplace_back(
-          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<asteroids_page>(); }, std::move(tb), "", 1);
+          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<asteroids_page>(); }, std::move(tb), "",
+          1);
     }
     auto& p = items_.back();
 
@@ -368,7 +403,8 @@ projects_page::projects_page()
       auto tb   = clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/thumbnail/portfolio.png");
 
       items_.emplace_back(
-          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<portfolio_page>(); }, std::move(tb), GIT);
+          *this, NAME, DESC, DATE, []() { gui_manager::change_page_next_frame_<portfolio_page>(); }, std::move(tb),
+          GIT);
     }
     auto& p = items_.back();
 
