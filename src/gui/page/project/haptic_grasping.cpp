@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/project/haptic_grasping.cpp
- * Last Modified: Friday, 12th February 2021 12:07:48 am
+ * Last Modified: Thursday, 4th March 2021 3:06:17 am
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -47,12 +47,11 @@ void haptic_grasping_page::render_project_content_() {
       "For shape estimation, I have experimented with Gaussian Process Implicit Surface (GPIS) potentials "
       "(see figures). However, since tactile data is sparse, strong priors must be used in order to perform "
       "accurate object reconstruction with few contact points. To this end, I am now using a class-conditioned "
-      "variational autoencoder that outputs a reconstructed occupancy grid; with a surface mesh being "
-      "recovered using the marching cubes algorithm.");
+      "variational autoencoder that outputs a reconstructed occupancy grid.");
 
   ImGui::Dummy({0, 10});
 
-  wrapped_text("The project is still in its infancy so this is just a taster.");
+  wrapped_text("As of writing this summary (12th February 2021), the project was still in its infancy; this is just a taster.");
 }
 
 } // namespace webapp
