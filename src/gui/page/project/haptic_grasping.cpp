@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/project/haptic_grasping.cpp
- * Last Modified: Thursday, 4th March 2021 3:06:17 am
+ * Last Modified: Thursday, 4th March 2021 4:58:47 pm
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -18,7 +18,7 @@
 namespace webapp {
 
 haptic_grasping_page::haptic_grasping_page()
-    : base_project_page("Object Grasping with Haptic Feedback",
+    : base_project_page("CORE: Haptic Object Reconstruction",
                         "2020 - Present  |  Individual  |  Academic  |  Robotics  |  Python") {
   imgs_.emplace_back(clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/full_size/gpis_bunny.png"));
   imgs_.emplace_back(clr::gfx::imgui_image::load_from_file(PRELOAD_DATA_DIR "/full_size/gpis_bowl.png"));
@@ -36,9 +36,10 @@ void haptic_grasping_page::render_project_content_() {
   ImGui::Text("Description");
   ImGui::PopFont();
 
-  wrapped_text("This is my final year BEng individual research project; noting that {Prof Andrew Davison} is the "
-               "supervisor. The goal is, given no knowledge of the surroundings and relying exclusively on haptic "
-               "feedback, to locate, identify, and accurately estimate an object's shape for subsequent manipulation.",
+  wrapped_text("The Class-conditioned Object Reconstruction Engine (CORE) is my final year BEng individual research "
+               "project; noting that {Prof Andrew Davison} is the supervisor. The goal is, given no knowledge of the "
+               "pose of an object but with known class, to locate and accurately estimate its shape for "
+               "subsequent manipulation by exclusively using touch.",
                {wrapped_text_external_link("https://www.doc.ic.ac.uk/~ajd/", "View his website")});
 
   ImGui::Dummy({0, 10});
@@ -48,10 +49,6 @@ void haptic_grasping_page::render_project_content_() {
       "(see figures). However, since tactile data is sparse, strong priors must be used in order to perform "
       "accurate object reconstruction with few contact points. To this end, I am now using a class-conditioned "
       "variational autoencoder that outputs a reconstructed occupancy grid.");
-
-  ImGui::Dummy({0, 10});
-
-  wrapped_text("As of writing this summary (12th February 2021), the project was still in its infancy; this is just a taster.");
 }
 
 } // namespace webapp

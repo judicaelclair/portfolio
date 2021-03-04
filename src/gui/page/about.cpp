@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/about.cpp
- * Last Modified: Monday, 14th December 2020 5:08:00 pm
+ * Last Modified: Thursday, 4th March 2021 12:58:16 pm
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -37,8 +37,8 @@ void about_page::render_content_() {
                "provide disaster relief. To this end, I am currently developing context-aware prostheses for dexterous "
                "manipulation; with this technology later being adapted to humanoid robots.");
   ImGui::Dummy({0, 5});
-  wrapped_text("My areas of interest include robotics, augmented reality, high-performance scientific computing (e.g. "
-               "fluid dynamics), natural language processing, as well as decentralised machine learning.");
+  wrapped_text("My areas of interest include robotics, augmented reality, and high-performance scientific computing "
+               "(e.g. fluid dynamics).");
   ImGui::Dummy({0, 30});
   ImGui::PushFont(semi_large_bold_font);
   { // CV link

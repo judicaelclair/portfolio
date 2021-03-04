@@ -4,7 +4,7 @@
  * permission from the copyright holder.
  * -----
  * File: /src/gui/page/projects.cpp
- * Last Modified: Friday, 12th February 2021 12:00:08 am
+ * Last Modified: Thursday, 4th March 2021 4:54:08 pm
  * Modified By: Judicaël CLAIR <clair.judicael@gmail.com>
  */
 
@@ -167,7 +167,7 @@ projects_page::projects_page()
 
   { // Final year BEng research project
     {
-      constexpr const char NAME[] = "Object Grasping with Haptic Feedback";
+      constexpr const char NAME[] = "CORE: Haptic Object Reconstruction";
       constexpr const char DESC[] = "Final year BEng research project.";
 
       auto DATE = D{2020, PRESENT_DATE};
